@@ -1,0 +1,47 @@
+.slider {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+
+    &__pagination {
+        display: flex;
+        align-items: center;
+    }
+    &__button {
+        &_disabled svg >rect {
+            stroke: #E5E5E5 
+        }
+
+        &_disabled svg >rect~rect{
+            fill:  #E5E5E5;
+        }
+        
+        &:hover svg >rect {
+            stroke: #828282;
+        }
+        &:hover svg >rect~rect {
+            fill:  #828282;
+        }
+    }
+    
+
+    &__dot {
+        margin-right: 7px;
+        
+        &_active svg {
+            fill: #070707;
+        }
+
+        &:hover svg  {
+        fill: #828282;
+        }
+
+        &:focus svg {
+        fill: #828282;
+        }
+
+
+    }
+
+
+}

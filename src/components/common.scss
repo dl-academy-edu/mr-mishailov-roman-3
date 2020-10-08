@@ -1,0 +1,56 @@
+
+@import "./header/header.scss";
+
+a {
+    text-decoration: none;
+    cursor: default;
+    font-family: 'Gilroy', Arial, Helvetica, sans-serif;
+  }
+  
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  body {
+      font-family: 'Gilroy', Arial, Helvetica, sans-serif;
+    }
+  button {
+    font-family: 'Gilroy',Arial, Helvetica, sans-serif;
+    border: none;
+    background-color: inherit;
+    padding: 0;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+  }
+  p {
+    margin: 0;
+  }
+  .hidden {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
+  }
+  
+  .container {
+      max-width: 1000px;
+      margin: 0 auto;
+  }

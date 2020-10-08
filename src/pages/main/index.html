@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+    <link href="/static/fonts/stylesheet.css">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="style.css">
+
+    <title>DirectLineProject2</title>
+</head>
+<body>
+    @@include('header/index.html')
+    <section class="container person">
+        <h1 class="hidden">Front-end developer</h1>
+        <div class="person__box">
+            <h2 class="person__name">Antonina Antoninovna</h2>
+            <p class="person__status">Future front-end developer 23 years old, Tolyatti</p>
+        </div>
+        @@include('photoSlider/index.html')
+    </section>
+    <section class="aboutMe">
+        <div class="container aboutMe__center">
+            <h3 class="aboutMe__title">About me</h3>
+                <div class="aboutMe__textContainer">
+                    <p class="aboutMe__text">Aliquam tortor molestie turpis est tristique. Congue diam orci amet quis semper ut. Vitae aenean nibh facilisis urna, ultricies euismod nunc. Commodo fringilla sit hendrerit consequat. Vel ac elit vel sagittis.</p>
+                    <img class="aboutMe__border " src="/static/images/bigBorder.svg" alt="">
+                </div>
+                <div class="aboutMe__textContainer aboutMe__textContainer_margin">
+                    <p class="aboutMe__text">Tincidunt id quis pellentesque rutrum pretium. Egestas aliquam dictum ipsum nisl, sed pulvinar. Commodo elit sed a fermentum non justo. Etiam platea consectetur.</p>
+                    <img class="aboutMe__border " src="/static/images/smallBorder.svg" alt="">
+                </div>
+
+                <div class="aboutMe__textContainer">
+                    <p class="aboutMe__text">Quam ipsum odio tellus etiam aliquam dolor ut hendrerit. Felis risus nec vitae nunc ultricies placerat. Nullam nec felis eu id dolor pellentesque tristique. </p>
+                    <img class="aboutMe__border " src="/static/images/smallBorder.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

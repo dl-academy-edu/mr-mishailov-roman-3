@@ -1,0 +1,34 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 33px;
+    padding-bottom: 32px;
+
+    border-bottom: #828282 1px solid;
+    &__link {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    color: #070707;
+
+        &_item {
+            font-weight: bold;
+            color: #828282;
+        }
+    }
+    &__list {
+        display: flex;
+        align-items: flex-end;
+
+    }
+    &__item {
+        padding-right: 20px;
+
+    }
+    &__button {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: bold;
+    color: #828282;
+    }
+}
