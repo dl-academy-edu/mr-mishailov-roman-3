@@ -22,6 +22,12 @@
         &:hover svg >rect~rect {
             fill:  #828282;
         }
+        &:focus svg >rect {
+            stroke: #828282;
+        }
+        &:focus svg >rect~rect {
+            fill:  #828282;
+        }
     }
     
 

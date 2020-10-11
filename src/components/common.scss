@@ -54,3 +54,32 @@ a {
       max-width: 1000px;
       margin: 0 auto;
   }
+
+  .button {
+    border: #070707;
+    border-width: 3px;
+    border-radius: 30px;
+
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #070707;
+
+    padding: 10px 29px;
+
+    &:hover {
+      background-color:  #070707;
+      color:#FFFFFF;
+    }
+
+    &_black {
+      background-color:  #070707;
+      color:#FFFFFF;
+
+      &:hover {
+        background-color:  #FFFFFF;
+        color: #070707;
+      }
+    }
+  }
