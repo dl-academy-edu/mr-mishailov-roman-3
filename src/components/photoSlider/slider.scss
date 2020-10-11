@@ -8,6 +8,7 @@
         align-items: center;
     }
     &__button {
+        outline: none;
         &_disabled svg >rect {
             stroke: #E5E5E5 
         }
@@ -33,7 +34,7 @@
 
     &__dot {
         margin-right: 7px;
-        
+        outline: none;
         &_active svg {
             fill: #070707;
         }

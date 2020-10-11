@@ -212,11 +212,9 @@
         color: #FFFFFF;
 
         margin-bottom: 15px;
+        outline: none;
 
-        &:hover {
-            border-bottom: 1px solid #FFFFFF;
-        }
-        &:focus {
+        &:hover,  &:focus {
             border-bottom: 1px solid #FFFFFF;
         }
     }

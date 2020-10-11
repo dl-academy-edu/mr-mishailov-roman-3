@@ -1,5 +1,6 @@
 
 @import "./header/header.scss";
+@import "./footer/footer.scss";
 
 a {
     text-decoration: none;
@@ -56,8 +57,7 @@ a {
   }
 
   .button {
-    border: #070707;
-    border-width: 3px;
+    border:3px solid #070707;
     border-radius: 30px;
 
     font-weight: bold;
@@ -66,9 +66,10 @@ a {
 
     color: #070707;
 
-    padding: 10px 29px;
+    padding: 10px 19px;
+    outline: none;
 
-    &:hover {
+    &:hover, &:focus {
       background-color:  #070707;
       color:#FFFFFF;
     }
@@ -76,8 +77,9 @@ a {
     &_black {
       background-color:  #070707;
       color:#FFFFFF;
+      padding: 10px 29px;
 
-      &:hover {
+      &:hover, &:focus {
         background-color:  #FFFFFF;
         color: #070707;
       }
