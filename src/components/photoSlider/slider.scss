@@ -1,0 +1,67 @@
+.slider {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+
+    &__container {
+        overflow: hidden;
+
+    }
+    &__box {
+        display: flex;
+        width: 100%;
+    }
+
+    &__pagination {
+        display: flex;
+        align-items: center;
+    }
+    &__button {
+        outline: none;
+        &_disabled svg >rect {
+            stroke: #E5E5E5 
+        }
+
+        &_disabled svg >rect~rect{
+            fill:  #E5E5E5;
+        }
+        &_hover {
+            &:hover svg >rect {
+                stroke: #828282;
+            }
+            &:hover svg >rect~rect {
+                fill:  #828282;
+            }
+            &:focus svg >rect {
+                stroke: #828282;
+            }
+            &:focus svg >rect~rect {
+                fill:  #828282;
+            }
+        }
+
+    }
+    
+
+    &__dot {
+        width: 10px;
+        height: 10px;
+
+        margin-right: 7px;
+        padding: 0;
+
+        border-radius: 50%;
+        border: none;
+        outline: none;
+
+        background-color: #E5E5E5;
+
+        &_active {
+            background-color: #070707;
+        }
+        &:hover, &:focus {
+        background-color: #828282;
+        }
+
+    }
+}

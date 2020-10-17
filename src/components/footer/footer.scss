@@ -1,0 +1,65 @@
+.footer {
+    padding: 60px 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__contacts {
+        font-weight: bold;
+        font-size: 34px;
+        line-height: 41px;
+
+        color: #070707;
+        margin-bottom: 20px;
+    }
+    &__text {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 21px;
+        text-align: center;
+
+        color: #070707;
+
+        margin-bottom: 40px;
+    }
+    &__button {
+        margin-bottom: 50px;
+    }
+    &__socials {
+        display: flex;
+        max-width: 330px;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    &__social {
+        margin-bottom: 30px;
+
+    }
+    &__Boxdisign {
+        display: flex;
+    }
+
+    &__designText {
+        font-size: 14px;
+        line-height: 16px;
+        color: #828282;
+
+        margin-bottom: 5px;
+        &_margin {
+            margin-right: 5px;
+        }
+    }
+    &__designLink {
+        border-bottom: 1px dashed #828282;
+        outline: none;
+        &:hover {
+            border-bottom: 1px solid #070707;
+            color: #070707;
+        }
+        &:focus {
+            border-bottom: 1px solid #070707;
+            color: #070707;
+        }
+    }
+}

@@ -1,0 +1,87 @@
+
+@import "./header/header.scss";
+@import "./footer/footer.scss";
+
+a {
+    text-decoration: none;
+    cursor: default;
+    font-family: 'Gilroy', Arial, Helvetica, sans-serif;
+  }
+  
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  body {
+      font-family: 'Gilroy', Arial, Helvetica, sans-serif;
+    }
+  button {
+    font-family: 'Gilroy',Arial, Helvetica, sans-serif;
+    border: none;
+    background-color: inherit;
+    padding: 0;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+  }
+  p {
+    margin: 0;
+  }
+  .hidden {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
+  }
+  
+  .container {
+      max-width: 1000px;
+      margin: 0 auto;
+  }
+
+  .button {
+    border:3px solid #070707;
+    border-radius: 30px;
+
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #070707;
+
+    padding: 10px 19px;
+    outline: none;
+
+    &:hover, &:focus {
+      background-color:  #070707;
+      color:#FFFFFF;
+    }
+
+    &_black {
+      background-color:  #070707;
+      color:#FFFFFF;
+      padding: 10px 29px;
+
+      &:hover, &:focus {
+        background-color:  #FFFFFF;
+        color: #070707;
+      }
+    }
+  }
