@@ -172,3 +172,78 @@ innerWrapper.style
   })
 
 })();
+
+// Open close popup signIn js 
+(function() {
+
+  const popUpFindSingIn = document.querySelector ('.popupSignIn_js');
+  const popupSignIn = document.querySelector('.popupSignInOpen_js');
+  let lastFocus;
+
+  popUpFindSingIn.addEventListener('click', function() {
+
+    lastFocus = document.activeElement;
+    popupSignIn.classList.add('popup_open');
+    popupSignIn.querySelector('.popup__input').focus();
+
+    
+    let close = popupSignIn.querySelector('.popup__close');
+    close.addEventListener ('click', exit);
+
+    window.addEventListener('keydown', keyDownEcs);
+  
+    function keyDownEcs (event) {
+      if (event.code==='Escape') {
+        exit ();
+      }
+    }
+
+    function exit () {
+        close.removeEventListener ('click', exit);
+        window.removeEventListener ('keydown', keyDownEcs);
+        popupSignIn.classList.remove('popup_open');
+        lastFocus.focus();
+      }     
+  })
+})();
+
+
+// Open close popup Register
+(function() {
+
+  const popUpRegister = document.querySelector ('.popupRegister_js');
+  const popupRegisterOpen = document.querySelector('.popupRegisterOpen_js');
+  let lastFocus;
+
+  popUpRegister.addEventListener('click', function() {
+
+    lastFocus = document.activeElement;
+    popupRegisterOpen.classList.add('popup_open');
+    popupRegisterOpen.querySelector('.popup__input').focus();
+
+
+    let close = popupRegisterOpen.querySelector('.popup__close');
+
+    close.addEventListener ('click', exit);
+
+    window.addEventListener('keydown', keyDownEcs);
+  
+
+    function keyDownEcs (event) {
+      if (event.code==='Escape') {
+        exit ();
+      }
+    }
+
+    function exit () {
+        close.removeEventListener ('click', exit);
+        window.removeEventListener ('keydown', keyDownEcs);
+        popupRegisterOpen.classList.remove('popup_open');
+        lastFocus.focus();
+      }    
+  })
+})();
+
+
+
+

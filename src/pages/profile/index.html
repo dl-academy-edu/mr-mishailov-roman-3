@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+    <link rel="stylesheet" href="/static/fonts/stylesheet.css">
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="style.css">
+    <title>My profile</title>
+</head>
+<body>
+    @@include('header/index.html')
+    <section class="container profile">
+        <h1 class="profile__title">My profile</h1>
+        <div class="profile__box">
+            <img class = 'profile__photo'src="/static/images/nophoto.svg" alt="Photo profile">
+            <ul>
+                <li class="profile__string">
+                    <p class="profile__name">Name:</p>
+                    <p class="profile__value">Oksana</p>
+                </li>
+                <li class="profile__string">
+                    <p class="profile__name">Surname:</p>
+                    <p class="profile__value">Larioshkina</p>
+                </li>
+                <li class="profile__string">
+                    <p class="profile__name">Email:</p>
+                    <p class="profile__value">larioshkina@gmail.com</p>
+                </li>
+                <li class="profile__string">
+                    <p class="profile__name">Password:</p>
+                    <p class="profile__value">**********</p>
+                </li>
+                <li class="profile__string">
+                    <p class="profile__name">Location:</p>
+                    <p class="profile__value">Toglyatti</p>
+                </li>
+                <li class="profile__string">
+                    <p class="profile__name">Age:</p>
+                    <p class="profile__value">23</p>
+                </li>
+                <li class="profile__buttonList">
+                    <button class="button profile__button">Change password</button>
+                    <button class="button profile__button">Change other data</button>
+                    <button class="button profile__button">Delete account</button>
+                </li>
+            </ul>
+        </div>
+    </section>
+    @@include('MobileMenu/index.html')
+</body>
