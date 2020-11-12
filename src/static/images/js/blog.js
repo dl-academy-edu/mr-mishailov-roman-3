@@ -1,4 +1,8 @@
 //filter js
+
+
+//get Data from form
+
 const SERVER_URL = 'https://academy.directlinedev.com';
 
 (function (){
@@ -151,7 +155,25 @@ function getTags() {
     };
 };
 
+//color checkbox 
+
 
 function tagsCreater (tag) {
-    return `<input class="form__checkbox" type="checkbox" name = "colorsTags${tag.id}" value="${tag.id}">`
+    return `
+    <label class="colorCheckbox">
+        <input class="colorCheckbox__tag hidden" type="checkbox" name="colorsTags${tag.id}" value="${tag.id}">
+        <span class="colorCheckbox__checkbox" style = "border-color: ${tag.color}">
+        <svg class="checkSVG" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 6.75L5.91301 12.77C6.20128 13.2135 6.85836 13.1893 7.11327 12.7259L13.425 1.25" stroke="${tag.color}" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        </span>
+    </label>`
 };
+
+
+
+            
+
+
+
+

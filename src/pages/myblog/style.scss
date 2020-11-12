@@ -40,18 +40,7 @@
         flex-wrap: wrap;
         width: 116px;
     }
-    &__checkbox {
-        width: 25px;
-        height: 25px;
-        border:3px solid #2176FF;
-        box-sizing: border-box;
-        border-radius: 5px;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        &:nth-child(4n) {
-            margin-right: 0;
-        }
-    }
+    
 
 
     &__lable {
@@ -68,8 +57,7 @@
     &__lableBox {
         display: flex;
         position: relative;
-       
-
+        
     }
     
     &__radImg {
@@ -164,3 +152,41 @@
          margin-right: 39px;
      }
    }
+
+.colorCheckbox {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    &:nth-child(4n) {
+        margin-right: 0;
+    }
+
+    &_box {
+        box-sizing: border-box;
+        display: block;
+        width: 25px;
+        height: 25px;
+    }
+
+    &__checkbox {
+        display: block;
+        position: relative;
+        width: 25px;
+        height: 25px;
+        border:2px solid;
+        box-sizing: border-box;
+        border-radius: 5px;
+        
+    }
+}
+
+.checkSVG {
+    display: none;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    
+}
+
+.colorCheckbox__tag:checked ~span .checkSVG {
+    display: block;
+}
