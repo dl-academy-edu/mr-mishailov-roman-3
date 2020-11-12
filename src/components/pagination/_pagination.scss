@@ -1,0 +1,30 @@
+.pagination {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+
+    &__button {
+        &:hover svg >rect {
+            stroke: #828282;
+        }
+        &:hover svg >rect~rect {
+            fill:  #828282;
+        }
+        &:focus svg >rect {
+            stroke: #828282;
+        }
+        &:focus svg >rect~rect {
+            fill:  #828282;
+        }
+        outline: none;
+        &_disabled svg >rect {
+            stroke: #E5E5E5 
+        }
+
+        &_disabled svg >rect~rect{
+            fill:  #E5E5E5;
+        }
+
+
+    }
+}

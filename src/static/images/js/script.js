@@ -1,177 +1,3 @@
-//Swiper slider
-
-(function(){
-    var mySwiper = new Swiper('.swiper-container', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
-
-        // Navigation arrows
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      })
-})();
-
-//skils progress animation
-
-(function(){
-  let listProcent = document.querySelectorAll('.procent_js');
-  let fillProcent = document.querySelectorAll('.fill_js');
-
-  let counter= makeCounter();
-
-  window.addEventListener('scroll', startProcent);
-
-  function startProcent () {
-
-    if (window.pageYOffset>1000) {
-      window.removeEventListener('scroll', startProcent);
-      let timer = setInterval(start, 50);
-
-      function start () {
-
-        let procent = counter();
-        changeHtml(procent);
-        changeCss(procent);
-
-        if (procent>=100) {
-          return clearTimeout(timer);
-          }
-        }
-    
-    }
-  }
-
-  function makeCounter (){
-    let i=0;
-    return function() {
-      return i++;
-    }
-  }
-  
-  function changeHtml (procent) {
-    for (elem of listProcent) {
-      elem.textContent = procent+'%';
-    }
-  }
-
-  function changeCss (procent) {
-    for (elem of fillProcent) {
-      elem.style.width = procent+'%';
-    }
-  }
-
-})();
-
-// First slider
-(function(){
-  const wrapper = document.querySelector ('.slider__container');
-  const innerWrapper = wrapper.querySelector ('.slider__box');
-  const buttonNext = document.querySelector('.buttonNext_js');
-  const buttonPrev = document.querySelector('.buttonPrev_js');
-  const pagination = document.querySelector ('.slider__pagination');
-  const slides = [...document.querySelectorAll('.slider__slide')];
-
-innerWrapper.style
-
-
-  let activeSlide = 0;
-  let animTime = 500;
-  let wightSlide = 0;
-  let timerId = null;
-  let dots =[];
-  
-  function setSlidewight() {
-    wightSlide = wrapper.clientWidth;
-    
-    for (let slide of slides) {
-      slide.style.width = `${wightSlide}px`
-    }
-  }
-  function setActiveSlide (index, playAnimation = true) {
-    if (index < 0 || index >= slides.length) {
-      return
-    }
-
-    if(playAnimation) {
-      animation(animTime);
-    }
-
-
-    dots[activeSlide].classList.remove('slider__dot_active');
-    dots[index].classList.add('slider__dot_active');
- 
-
-
-    if (index === 0) {
-      buttonPrev.classList.add('slider__button_disabled');
-      buttonPrev.classList.remove('slider__button_hover');
-    }
-    else {
-      buttonPrev.classList.remove('slider__button_disabled');
-      buttonPrev.classList.add('slider__button_hover');
-
-    }
-
-    if (index >= slides.length-1) {
-      buttonNext.classList.add('slider__button_disabled');
-      buttonNext.classList.remove('slider__button_hover');
-    }
-    else {
-      buttonNext.classList.remove('slider__button_disabled');
-      buttonNext.classList.add('slider__button_hover');
-    }
-
-    innerWrapper.style.transform = `translateX(-${wightSlide * index}px)`;
-    activeSlide=index;
-  }
-
-  function createPagination () {
-    for (let i =0; i < slides.length; i++) {
-      let dot = createDot(i);
-      pagination.insertAdjacentElement('beforeend', dot);
-      dots.push(dot);
-    }
-  }
-
-  function createDot(index) {
-    let dot = document.createElement('button');
-    dot.classList.add('slider__dot');
-    dot.addEventListener('click',function () {
-      setActiveSlide(index);
-    })
-    return  dot;
-  }
-
-
-  buttonNext.addEventListener('click', function () {
-    setActiveSlide(activeSlide + 1);
-  })
-
-  buttonPrev.addEventListener('click', function () {
-    setActiveSlide(activeSlide - 1);
-  })
-
-  function animation (duration) {
-    clearTimeout (timerId);
-    innerWrapper.style.transition = `transform ${duration}ms`
-    timerId = setTimeout (function () {
-      innerWrapper.style.transition='';
-    }, duration)
-  }
-  
-  setSlidewight();
-  createPagination();
-  setActiveSlide(0, false);
-
-  window.addEventListener('resize', function () {
-    setSlidewight();
-    setActiveSlide(activeSlide, false);
-  })
-
-})();
 
 // Open close popup signIn js 
 (function() {
@@ -245,5 +71,142 @@ innerWrapper.style
 })();
 
 
+//Validation
 
+function validateData (data, errors={}) {
+
+  if(!checkEmail(data.email)){
+    errors.email = 'Please enter a valid email address (your entry is not in the format "somebody@example.com")';
+  }
+  if(data.password!=data.repeatPassword){
+    errors.password = 'The password and confirm password fields do not match.';
+  }
+  if (!data.password) {
+    errors.password = 'This field is required';
+
+  } else if (data.password.length<8){
+    errors.password = 'The password is too short';
+  }
+  
+  if (!data.name) {
+    errors.name = 'This field is required';
+  }
+  if (!data.surname) {
+    errors.surname = 'This field is required';
+  }
+  if (!data.location) {
+    errors.location = 'This field is required';
+  }
+  if (+(data.age)<=0) {
+    errors.age = 'Age is incorrect';
+  }
+  return errors;
+}
+
+function checkEmail(email) {
+  return email.match(/^[0-9a-z-\.]+\@[0-9a-z-]{2,}\.[a-z]{2,}$/i);
+}
+
+function getFormData(form, data = {}){
+  let inputs = form.querySelectorAll ('input');
+    for (let input of inputs) {
+        switch (input.type) {
+          case 'radio':
+            if(input.checked) {
+              data[input.name] = input.value;
+            }
+            break;
+            case 'checkbox':
+            if(!data[input.name]) {
+              data[input.name] = [];
+            }
+            if (input.checked){
+              data[input.name].push(input.value);
+            }
+            break;
+          case 'file':
+              data[input.name] = input.files;
+              break;
+            
+          default:
+            data[input.name] = input.value;
+            break;
+        }
+    }
+  let textareas = form.querySelectorAll('textarea');
+    for (let textarea of textareas) {
+      data[textarea.name] = textarea.value;
+    }
+  return data;
+}
+
+function setInvalid(input) {
+  function handl (){
+    input.removeEventListener('input', handl);
+    input.classList.remove ("invalidInput");
+  }
+  input.classList.add ("invalidInput");
+  input.addEventListener('input', handl);
+  return handl;
+}
+function giveInputFeedback(input, error) {
+  function handl (){
+    message.remove();
+    input.removeEventListener('input', handl);
+  }
+
+  input.classList.add ("invalidInput");
+  let message = document.createElement('div');
+  message.classList.add ("invalidMessage");
+  message.innerText = error;
+  input.insertAdjacentElement("afterend",message);
+
+  input.addEventListener('input', handl);
+  return handl;
+}
+
+function setFormError (form, errors) {
+  let removeArr = [];
+  let inputs = form.querySelectorAll ('input');
+  let textareas = form.querySelectorAll('textarea');
+
+  for (let input of inputs) {
+    if(errors[input.name]){
+      const remove1 = setInvalid(input);
+      const remove2 = giveInputFeedback(input, errors[input.name]);
+      removeArr.push(remove1, remove2);
+    }
+  }
+
+  for (let textarea of textareas) { 
+    if(errors[textarea.name]) {
+      const remove3 = setInvalid(textarea);
+      const remove4 = egiveInputFeedback(input, errors[textarea.name]);
+      removeArr.push(remove3, remove4);
+    }
+  }
+  return removeArr;
+
+
+}
+
+(function(){
+  const registerForm = document.forms.register;
+  const signIn = document.forms.signIn;
+  let removeArr = [];
+
+
+  registerForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const data = getFormData(event.target);
+    let errors = validateData(data);
+    removeArr.forEach(fn => fn());
+    if(Object.keys(errors).length) {
+      removeArr = setFormError (registerForm, errors);
+    }
+
+  })
+
+  
+})();
 

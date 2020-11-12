@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+    <link rel="stylesheet" href="/static/fonts/stylesheet.css">
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="style.css">
+    <title>My blog</title>
+</head>
+<body>
+    @@include('header/index.html')
+    <main class="myblog-main container">
+        <h1 class="blogTitle">My blog</h1>
+        <form class="form form_js">
+            <div class="form__container">
+                <div class="form__boxTags">
+                    <fieldset class="form__tags tagBox_js">
+                        <legend class="form__title">Tags</legend>
+                        <!-- <input class="form__checkbox" type="checkbox" name = "colorsTags" value="1">
+                        <input class="form__checkbox" type="checkbox" name = "colorsTags" value="2">
+                        <input class="form__checkbox" type="checkbox" name = "colorsTags" value="3">
+                        <input class="form__checkbox" type="checkbox" name = "colorsTags" value="4">
+                        <input class="form__checkbox" type="checkbox" name = "colorsTags" value="5">
+                        <input class="form__checkbox" type="checkbox" name = "colorsTags" value="6">
+                        <input class="form__checkbox" type="checkbox" name = "colorsTags" value="7">
+                        <input class="form__checkbox" type="checkbox" name = "colorsTags" value="8"> -->
+                    </fieldset>
+                </div>
+                <fieldset class="form__fieldset form__views">
+                    <legend class="form__title">Views</legend>
+                    <label class="form__lableBox">
+                        <input class="form__radChecker hidden" type="radio" name="views" value="100-500">
+                        <span class="form__lable">100-500</span>
+                        <span class="form__radImg"></span>
+                    </label>
+                    <label class="form__lableBox">
+                        <input class="form__radChecker hidden" type="radio" name="views" value="500-1000">
+                        <span class="form__lable">500-1000</span>
+                        <span class="form__radImg"></span>
+                    </label>
+                    <label class="form__lableBox">
+                        <input class="form__radChecker hidden" type="radio" name="views" value="1000-2000">
+                        <span class="form__lable">1000-2000</span>
+                        <span class="form__radImg"></span>
+                    </label>
+                </fieldset>
+                <fieldset class="form__fieldset form__comments">
+                    <legend class="form__title">Comments</legend>
+                    <label class="form__lableBox">
+                        <input class="form__chekChecker hidden" type="checkbox" name="comments" value="0">
+                        <span class="form__lable">0</span>
+                        <span class="form__checker"></span>
+                    </label>
+                    <label class="form__lableBox">
+                        <input class="form__chekChecker hidden" type="checkbox" name="comments" value="0-1">
+                        <span class="form__lable">0-1</span>
+                        <span class="form__checker"></span>
+                    </label>
+                    <label class="form__lableBox">
+                        <input class="form__chekChecker hidden" type="checkbox" name="comments" value="1-50">
+                        <span class="form__lable">1-50</span>
+                        <span class="form__checker"></span>
+                    </label>
+                </fieldset>
+                <fieldset class="form__fieldset form__shows">
+                    <legend class="form__title">How show?</legend>
+                    <label class="form__lableBox">
+                        <input class="form__radChecker hidden" type="radio" name="HowShow" value="5">
+                        <span class="form__lable">show 5</span>
+                        <span class="form__radImg"></span>
+                    </label>
+                    <label class="form__lableBox">
+                        <input class="form__radChecker hidden" type="radio" name="HowShow" value="10">
+                        <span class="form__lable">show 10</span>
+                        <span class="form__radImg"></span>
+                    </label>
+                </fieldset>
+                <fieldset class="form__fieldset form__sort">
+                    <legend class="form__title">Sort by</legend>
+                    <label class="form__lableBox">
+                        <input class="form__radChecker hidden" type="radio" name="sorted" value="date">
+                        <span class="form__lable">date</span>
+                        <span class="form__radImg"></span>
+                    </label>
+                    <label class="form__lableBox">
+                        <input class="form__radChecker hidden" type="radio" name="sorted" value="title">
+                        <span class="form__lable">title</span>
+                        <span class="form__radImg"></span>
+                    </label>
+                    <label class="form__lableBox">
+                        <input class="form__radChecker hidden" type="radio" name="sorted" value="views">
+                        <span class="form__lable">views</span>
+                        <span class="form__radImg"></span>
+                    </label>
+                </fieldset>
+                <div class="form__buttonBox">
+                    <p class="form__buttonText">reset form</p>
+                    <button class="button reset_js" type="button">Reset</button>
+                </div>
+            </div>
+            <div class="form__search">
+                <input class="form__input popup__input" type = 'text' name="search">
+                <button class="form__searchButton button" type="submit">Search</button>
+            </div>
+        </form>
+        <div class="article">
+            <h1 class="=title"> Результат поиска</h1>
+            <pre class="result_js"></pre>
+            <img class="article__img" src="" alt="">
+            <div class="article__box">
+                
+            </div>
+        </div>
+        @@include('pagination/index.html')
+    </main>
+    <div class="blogFooter_bg">
+    @@include('footer/index.html')
+    </div>
+    <script src="/static/images/js/script.js"></script>
+    <script src="/static/images/js/blog.js"></script>
+</body>
+</html>

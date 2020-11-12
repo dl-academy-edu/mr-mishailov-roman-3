@@ -11,10 +11,11 @@
 </head>
 <body>
     @@include('header/index.html')
+    <main class="profile-main">
     <section class="container profile">
         <h1 class="profile__title">My profile</h1>
         <div class="profile__box">
-            <img class = 'profile__photo'src="/static/images/nophoto.svg" alt="Photo profile">
+            <div class="profile__photo"></div>
             <ul>
                 <li class="profile__string">
                     <p class="profile__name">Name:</p>
@@ -48,5 +49,7 @@
             </ul>
         </div>
     </section>
+    </main>
     @@include('MobileMenu/index.html')
 </body>
+</html>

@@ -1,10 +1,10 @@
 <div class="popup popupRegisterOpen_js">
-    <form class="popup__form popup__form_register" action="">
+    <form class="popup__form popup__form_register" name="register" action="">
         <label class="popup__lable">
             <span class="popup__text requiared">Email</span>
-            <input class="popup__input" type="email" name="email">
+            <input class="popup__input" type="text" name="email">
         </label>
-        <div class="popup__box">
+        <fieldset class="popup__box">
             <label class="popup__lable popup__lable_custom">
                 <span class="popup__text requiared">Name</span>
                 <input class="popup__input" type="text" name="name">
@@ -29,9 +29,9 @@
                 <span class="popup__text requiared">Age</span>
                 <input class="popup__input" type="number" name="age">
             </label>
-        </div>
+        </fieldset>
         <label class="popup__lable popup__container">
-            <input class="hidden popup__checkbox" type="checkbox" name="agreement">
+            <input class="hidden popup__checkbox" type="checkbox" name="agreement" value="yes">
             <span class="popup__checkboxText">Clicking on the button, you consent to the processing of your personal data.</span>
             <span class="popup__checkboxChecker"></span>
         </label>
@@ -45,8 +45,3 @@
     </form>
 </div>
 
-<!-- <label class="color-lable">
-    <input class="hidden input-checkbox" type="checkbox" name="colors" value="green">
-    <span class="input-lable-checkbox">Green</span>
-    <span class="input-checkbox-checker"></span>
-</label> -->
