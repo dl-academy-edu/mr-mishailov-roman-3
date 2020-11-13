@@ -1,15 +1,17 @@
-<header class="header container">
-    <a class="header__link header__link_main" href="#">Home</a>
+<header class="container header ">
+    <a class="header__link header__link_main" href="/index.html">Home</a>
     <ul class="header__list">
         <li class="header__item">
-            <a href="#" class="header__link header__link_item">My blog</a>
+            <a href="/pages/myblog/index.html" class="header__link header__link_item">My blog</a>
         </li>
         <li class="header__item">
-            <button class="header__button">Sing in</button>
+            <button class="header__button popupSignIn_js" type="button">Sing in</button>
         </li>
         <li class="header__item">
-            <button class="header__button">Register</button>
+            <button class="header__button popupRegister_js" type="button">Register</button>
         </li>
         <li class="header__item"></li>
     </ul>
+    @@include('signInPopup/index.html')
+    @@include('registerPopup/index.html')
 </header>
