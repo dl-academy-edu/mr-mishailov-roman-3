@@ -58,11 +58,11 @@
 });
 
     //Button Reset parametrs
-    // reset.addEventListener('click', function (){
-    //     params = {};
-    //     setParamsToURL(params)
-    //     setValueToForm(form,params);
-    // })
+    reset.addEventListener('click', function (){
+        form.reset();
+        params = {};
+        setParamsToURL(params);
+    })
 
     
 
