@@ -3,12 +3,16 @@
 
 //get Data from form
 
-(function (){
-    const form = document.querySelector('.form_js');
-    const reset = document.querySelector('.reset_js');
-    const result = document.querySelector('.result_js');
-    const paginationLink = document.querySelector('.pagination__number_js');
-    const formSubmit = document.querySelector('.formSubmit_js');
+const form = document.querySelector('.form_js');
+const reset = document.querySelector('.reset_js');
+const result = document.querySelector('.result_js');
+const paginationLink = document.querySelector('.pagination__number_js');
+const formSubmit = document.querySelector('.formSubmit_js');
+const buttonNext = document.querySelector('.buttonNext_js');
+const buttonPrev = document.querySelector('.buttonPrev_js');
+let links =[];
+
+
 
     getTags();
     
@@ -39,7 +43,7 @@
                     result.innerHTML+=postCreater(post);
                 }
                 paginationCreate(response,paginationLink,fullData);
-                let links = paginationLink.querySelectorAll('.link_js');
+                links = paginationLink.querySelectorAll('.link_js');
                 for (let i = 0; i< links.length; i++) {
                     link = links[i];
                     link.addEventListener('click', function(event){
@@ -47,15 +51,19 @@
                         fullData.page = i;
                         setParamsToURL(fullData);
                         submit(event);
-    });
-}
+                        
+                    });
+                }
             } else {
                 console.error('Server error');
             }
-
         });
+
        
 });
+
+
+
 
     //Button Reset parametrs
     reset.addEventListener('click', function (){
@@ -66,7 +74,26 @@
 
     
 
-})();
+
+buttonPrev.addEventListener('click', function(){    
+    if (fullData.page<=0){
+        return
+    } else {
+        console.log(fullData.page);
+        fullData.page -= 1;
+        formSubmit.click();
+    }
+    
+})
+buttonNext.addEventListener('click', function(){
+    if (fullData.page >= links.length-1){
+        return
+    }
+    fullData.page += 1;
+    formSubmit.click();
+})   
+
+
 
 function setParamsToURL(params) {
 
