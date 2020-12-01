@@ -1,9 +1,22 @@
 
+const SERVER_URL = 'https://academy.directlinedev.com';
+const VERSION_API = '1.0.0';
 // Open close popup signIn js 
+
+const popUpFindSingIn = document.querySelector ('.popupSignIn_js');
+const popupSignIn = document.querySelector('.popupSignInOpen_js');
+const popUpRegister = document.querySelector ('.popupRegister_js');
+const popupRegisterOpen = document.querySelector('.popupRegisterOpen_js');
+const profileLink = document.querySelector('.profileLink_js');
+const registerForm = document.forms.register;
+const signIn = document.forms.signIn;
+
+
+
+
+
 (function() {
 
-  const popUpFindSingIn = document.querySelector ('.popupSignIn_js');
-  const popupSignIn = document.querySelector('.popupSignInOpen_js');
   let lastFocus;
 
   popUpFindSingIn.addEventListener('click', function() {
@@ -37,8 +50,7 @@
 // Open close popup Register
 (function() {
 
-  const popUpRegister = document.querySelector ('.popupRegister_js');
-  const popupRegisterOpen = document.querySelector('.popupRegisterOpen_js');
+ 
   let lastFocus;
 
   popUpRegister.addEventListener('click', function() {
@@ -70,6 +82,110 @@
   })
 })();
 
+//Register 
+(function(){
+  
+  let removeArr = [];
+  let isLoadingRegister = false;
+
+  registerForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (isLoadingRegister) {
+      return
+    }
+    isLoadingRegister = true;
+    const data = getFormData(event.target);
+    let errors = validateData(data);
+    removeArr.forEach(fn => fn());
+    if(Object.keys(errors).length) {
+      removeArr = setFormError (registerForm, errors);
+      isLoadingRegister = false;
+      return
+    }
+    fetchData({
+      method : 'POST',
+      url : '/api/users',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
+    .then (res=>{
+        return res.json();
+    })
+    .then (res=>{
+    
+      if (res.success) {
+        alert('Succsess registration');
+        popupRegisterOpen.classList.remove('popup_open');
+
+      } else{
+        throw res;
+      }
+      isLoadingRegister = false;
+    })
+    .catch(err => {
+      for (key in err.errors) {
+        setFormError(registerForm, err.errors);
+        isLoadingRegister = false;
+      }
+    })
+  })
+
+})();
+
+//login 
+(function() {
+ 
+  let isLoadingLogin = false;
+  let removeArr = [];
+  
+  signIn.addEventListener('submit', function logIn(e){
+    e.preventDefault();
+    if (isLoadingLogin) {
+      return
+    }
+    isLoadingLogin = true;
+    const data = getFormData(signIn);
+    let errors = validateDataLogin(data);
+    removeArr.forEach(fn => fn());
+    if(Object.keys(errors).length) {
+      removeArr = setFormError (signIn, errors);
+      isLoadingRegister = false;
+      return
+    }
+    fetchData({
+      method: 'POST',
+      url: '/api/users/login',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type':'application/json'
+      }
+     
+    })
+    .then (res => res.json())
+    .then (res => {
+      if (res.success) {
+        alert('Пользователь успешно вошел, ID:\n'+ res.data.userId)
+        updateToken(res.data);
+        headerUpdate ();
+        popupSignIn.classList.remove('popup_open');
+        isLoadingLogin = false;
+      } else {
+        throw res;
+      }
+    })
+    .catch(err => {
+      for (key in err.errors) {
+        setFormError(signIn, err.errors);
+        isLoadingLogin = false;
+      }
+    })
+  })
+  
+})();
+
+headerUpdate ();
 
 //Validation
 
@@ -103,12 +219,29 @@ function validateData (data, errors={}) {
   return errors;
 }
 
+function validateDataLogin (data, errors={}) {
+
+  if(!checkEmail(data.email)){
+    errors.email = 'Please enter a valid email address (your entry is not in the format "somebody@example.com")';
+  }
+ 
+  if (!data.password) {
+    errors.password = 'This field is required';
+
+  } else if (data.password.length<8){
+    errors.password = 'The password is too short';
+  }
+  
+  return errors;
+}
+
 function checkEmail(email) {
   return email.match(/^[0-9a-z-\.]+\@[0-9a-z-]{2,}\.[a-z]{2,}$/i);
 }
 
-function getFormData(form, data = {}){
-  let inputs = form.querySelectorAll ('input');
+function getFormData(form, data = {}, type ='json'){
+  if (type === 'json'){
+    let inputs = form.querySelectorAll ('input');
     for (let input of inputs) {
         switch (input.type) {
           case 'radio':
@@ -138,6 +271,10 @@ function getFormData(form, data = {}){
       data[textarea.name] = textarea.value;
     }
   return data;
+  } else {
+    return new FormData(form);
+  }
+ 
 }
 
 function setInvalid(input) {
@@ -181,32 +318,65 @@ function setFormError (form, errors) {
   for (let textarea of textareas) { 
     if(errors[textarea.name]) {
       const remove3 = setInvalid(textarea);
-      const remove4 = egiveInputFeedback(input, errors[textarea.name]);
+      const remove4 = giveInputFeedback(input, errors[textarea.name]);
       removeArr.push(remove3, remove4);
     }
   }
   return removeArr;
-
-
 }
 
-(function(){
-  const registerForm = document.forms.register;
-  const signIn = document.forms.signIn;
-  let removeArr = [];
-
-
-  registerForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const data = getFormData(event.target);
-    let errors = validateData(data);
-    removeArr.forEach(fn => fn());
-    if(Object.keys(errors).length) {
-      removeArr = setFormError (registerForm, errors);
-    }
-
+function fetchData ({method= 'GET', url = '',body = null, headers = {} }){
+  return fetch(SERVER_URL + url, {
+    method:method,
+    body: body,
+    headers: headers,
   })
+}
 
-  
-})();
+function updateToken(response){
+  localStorage.setItem('token', response.token);
+  localStorage.setItem('userId', response.userId);
+}
 
+
+function headerUpdate () {
+  if (localStorage.getItem('token')) {
+    popUpFindSingIn.classList.add('hidden');
+    popUpRegister.classList.add('hidden');
+    profileLink.classList.remove('hidden');
+  } else {
+    popUpFindSingIn.classList.remove('hidden');
+    popUpRegister.classList.remove('hidden');
+    profileLink.classList.add('hidden');
+  }
+}
+
+
+function setValueToForm (form, data) {
+  let inputs = form.querySelectorAll ('input');
+  for (let input of inputs) {
+      switch (input.type) {
+          case 'radio':
+          if(data[input.name]===input.value) {
+              input.checked = true;
+          }
+          break;
+          case 'checkbox':
+          if(data[input.name] && data[input.name].includes(input.value)) {
+              input.checked = true;
+          }
+
+          break;
+          default:
+              if (data[input.name])
+              input.value = data[input.name];
+          break;
+      }
+  }
+  let textareas = form.querySelectorAll('textarea');
+      for (let textarea of textareas) {
+          if (data[textarea.name])
+          textarea.value=data[textarea.name];
+      }
+  return data;
+}

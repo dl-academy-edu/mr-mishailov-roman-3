@@ -3,32 +3,34 @@
 
 //get Data from form
 
-const SERVER_URL = 'https://academy.directlinedev.com';
-
-const VERSION_API = '1.0.0';
-
 (function (){
     const form = document.querySelector('.form_js');
     const reset = document.querySelector('.reset_js');
     const result = document.querySelector('.result_js');
     const paginationLink = document.querySelector('.pagination__number_js');
-    
+    const formSubmit = document.querySelector('.formSubmit_js');
+
     getTags();
     
     let fullData = getParamsFromURL();
     fullData.page = 0;
-
     setValueToForm(form, fullData);
-
-    form.addEventListener('submit', function(event) {
+    window.onload = function() {
+        formSubmit.click();
+    }
+    form.addEventListener('submit', function submit(event) {
         event.preventDefault();
-        const page = fullData.page;
+        let page = fullData.page;
+        let limits = fullData.limit;
         fullData = getFormData(form);
         fullData.page = page;
+        if (fullData.limit != limits){
+            fullData.page = 0;
+        }
         setParamsToURL(fullData);
 
         result.innerHTML = preloaderCreater();
-        getPost(fullData, function(xhr) {
+        getPost(fullData, function callback(xhr) {
             const response =JSON.parse(xhr.response);
             if (response.success) {
                 result.innerHTML = `` ;
@@ -36,7 +38,7 @@ const VERSION_API = '1.0.0';
                 for (let post of response.data) {
                     result.innerHTML+=postCreater(post);
                 }
-                paginationCreate(response,paginationLink);
+                paginationCreate(response,paginationLink,fullData);
                 let links = paginationLink.querySelectorAll('.link_js');
                 for (let i = 0; i< links.length; i++) {
                     link = links[i];
@@ -44,6 +46,7 @@ const VERSION_API = '1.0.0';
                         event.preventDefault();
                         fullData.page = i;
                         setParamsToURL(fullData);
+                        submit(event);
     });
 }
             } else {
@@ -82,34 +85,7 @@ function setParamsToURL(params) {
     }
 }
 
-function setValueToForm (form, data) {
-    let inputs = form.querySelectorAll ('input');
-    for (let input of inputs) {
-        switch (input.type) {
-            case 'radio':
-            if(data[input.name]===input.value) {
-                input.checked = true;
-            }
-            break;
-            case 'checkbox':
-            if(data[input.name] && data[input.name].includes(input.value)) {
-                input.checked = true;
-            }
 
-            break;
-            default:
-                if (data[input.name])
-                input.value = data[input.name];
-            break;
-        }
-    }
-    let textareas = form.querySelectorAll('textarea');
-        for (let textarea of textareas) {
-            if (data[textarea.name])
-            textarea.value=data[textarea.name];
-        }
-    return data;
-}
 
 function getParamsFromURL () {
     const searchParams = new URL(window.location).searchParams;
@@ -123,8 +99,8 @@ function getParamsFromURL () {
     if (searchParams.has('commentsCount')) {
         params.commentsCount = searchParams.getAll('commentsCount');
     }
-    if (searchParams.has('HowShow')) {
-        params.HowShow = searchParams.get('HowShow');
+    if (searchParams.has('limit')) {
+        params.limit = searchParams.get('limit');
     }
     if (searchParams.has('sorted')) {
         params.sorted = searchParams.get('sorted');
@@ -154,9 +130,7 @@ function getTags() {
             for (let tag of response.data){
                 box.innerHTML += tagsCreater(tag);
                 
-            }
-           
-
+            } 
         } else {
             console.error(response._message);
         }
@@ -208,6 +182,13 @@ function getPost (params, onload) {
     if (params.sorted) {
         url.searchParams.set('sort', JSON.stringify([params.sorted,'DESC']));
     }
+    if (params.limit) {
+        url.searchParams.set('limit', +params.limit);
+    }
+    if(params.page){
+        url.searchParams.set('offset', +params.page* (+params.limit));
+    }
+    
     url.searchParams.set('filter', JSON.stringify(filter));
 
     let xhr = new XMLHttpRequest();
@@ -220,6 +201,11 @@ function getPost (params, onload) {
     } 
 }
 
+
+function skipPost(page, limits) {
+    return page*limits
+
+}
 
 function preloaderCreater () {
     return `<div class="load">
@@ -304,12 +290,19 @@ function postTagCreater (tag) {
 };
 
 
-function paginationCreate(response,paginationLink) {
-    let quantity = Math.ceil(+(response.count)/10);
+function paginationCreate(response,paginationLink,data) {
+    let quantity = Math.ceil(+(response.count)/data.limit);
     paginationLink.innerHTML = '';
     for (let i=0; i<quantity; i++) {
-        paginationLink.innerHTML += `<a href="?page=${i}" class="pagination__num link_js">${i+1}</a>`
+        if (data.page ===i){
+            paginationLink.innerHTML += `<a href="?page=${i}" class="pagination__num pagination__num_active link_js">${i+1}</a>`
+        } else {
+            paginationLink.innerHTML += `<a href="?page=${i}" class="pagination__num link_js">${i+1}</a>`
+        }
+        
+        
     }
+    
 }
 
 
@@ -329,3 +322,4 @@ function commentsBetweens (comments) {
     return {$between: [firstNum, lastNum]}
     
 }
+
