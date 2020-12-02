@@ -1,4 +1,5 @@
 
+
 const SERVER_URL = 'https://academy.directlinedev.com';
 const VERSION_API = '1.0.0';
 // Open close popup signIn js 
@@ -10,11 +11,64 @@ const popupRegisterOpen = document.querySelector('.popupRegisterOpen_js');
 const profileLink = document.querySelector('.profileLink_js');
 const registerForm = document.forms.register;
 const signIn = document.forms.signIn;
+const popupSendMessageOpen = document.querySelector('.popupSendMessageOpen_js');
+const sendMessageButton = document.querySelector('.sendMessageButton_js');
+const sendEmail = document.querySelector('.sendEmail_js');
+const sendMassageForm = document.querySelector('.sendMassageForm_js');
+const registerChecked = document.querySelector('.registerChecked_js');
+const registerButton = document.querySelector('.registerButton_js');
+const sendButton = document.querySelector('.sendButton_js');
+const sendCheckbox = document.querySelector('.sendCheckbox_js');
 
 
+//send message
+(function(){
+  sendMassageForm.addEventListener('submit', function(e) {
+    sendMessage(e);
+  })
 
+})();
 
+function sendMessage(event){
+  event.preventDefault();
+let isSending = false;
+  let removeArr =[];
 
+  if (isSending) {
+    return
+  }
+  isSending = false;
+  let data = getFormData(event.target);
+  let errors = validateSendMessage(data);
+  removeArr.forEach(fn => fn());
+    if(Object.keys(errors).length) {
+      removeArr = setFormError (event.target, errors);
+      isSending = false;
+      return
+    }
+    let items = {};
+    items.body = JSON.stringify(data);
+    items.to = '111@asdas.com'
+  fetch (SERVER_URL+'/api/emails',{
+    method: 'POST',
+    body: JSON.stringify(items),
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    }
+
+  })
+  .then (res=>res.json())
+  .then(res =>{
+    if (res.success)
+    alert('Emeil was sending');
+    popupSendMessageOpen.classList.remove('popup_open');
+  }
+    )
+  .catch(()=>{
+    console.error('Something was wrong. Try again');
+  })
+}
+//open popup login
 (function() {
 
   let lastFocus;
@@ -81,6 +135,44 @@ const signIn = document.forms.signIn;
       }    
   })
 })();
+
+
+
+// Open popup send Message 
+(function() {
+
+ 
+  let lastFocus;
+
+  sendMessageButton.addEventListener('click', function() {
+
+    lastFocus = document.activeElement;
+    popupSendMessageOpen.classList.add('popup_open');
+    popupSendMessageOpen.querySelector('.popup__input').focus();
+
+
+    let close = popupSendMessageOpen.querySelector('.popup__close');
+
+    close.addEventListener ('click', exit);
+
+    window.addEventListener('keydown', keyDownEcs);
+  
+
+    function keyDownEcs (event) {
+      if (event.code==='Escape') {
+        exit ();
+      }
+    }
+
+    function exit () {
+        close.removeEventListener ('click', exit);
+        window.removeEventListener ('keydown', keyDownEcs);
+        popupSendMessageOpen.classList.remove('popup_open');
+        lastFocus.focus();
+      }    
+  })
+})();
+
 
 //Register 
 (function(){
@@ -239,6 +331,25 @@ function checkEmail(email) {
   return email.match(/^[0-9a-z-\.]+\@[0-9a-z-]{2,}\.[a-z]{2,}$/i);
 }
 
+function validateSendMessage (data, errors={}) {
+
+  if(!checkEmail(data.email)){
+    errors.email = 'Please enter a valid email address (your entry is not in the format "somebody@example.com")';
+  }
+ 
+  if (!data.phone) {
+    errors.phone = 'This field is required';
+
+  }  
+  if (!data.name) {
+    errors.name = 'This field is required';
+  }
+  if (!data.messageSubject) {
+    errors.messageSubject = 'This field is required';
+  }
+  return errors;
+}
+
 function getFormData(form, data = {}, type ='json'){
   if (type === 'json'){
     let inputs = form.querySelectorAll ('input');
@@ -276,6 +387,9 @@ function getFormData(form, data = {}, type ='json'){
   }
  
 }
+
+
+
 
 function setInvalid(input) {
   function handl (){
@@ -380,3 +494,34 @@ function setValueToForm (form, data) {
       }
   return data;
 }
+
+
+function isDisabled(elem, button) {
+  if (elem.checked) {
+    button.removeAttribute('disabled');
+    button.classList.remove('button_disabled');
+  }
+  else {
+    button.classList.add('button_disabled');
+    button.setAttribute('disabled','disabled');
+  }
+}
+
+(function () {
+
+  registerChecked.addEventListener('click', function () {
+    isDisabled(registerChecked, registerButton);
+  })
+  
+})();
+
+(function () {
+
+  sendCheckbox.addEventListener('click', function () {
+    isDisabled(sendCheckbox, sendButton);
+  })
+  
+})();
+
+
+

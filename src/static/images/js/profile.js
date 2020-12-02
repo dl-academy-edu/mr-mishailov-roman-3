@@ -210,7 +210,7 @@ function changeUserPassword(e){
   })
   .then(res => res.json())
   .then(res => {
-    console.log(res);
+
     if (res.success){
       userData = res.data;
       rerenderUser (userData);
