@@ -15,41 +15,45 @@
     <section class="container profile">
         <h1 class="profile__title">My profile</h1>
         <div class="profile__box">
-            <div class="profile__photo"></div>
+            <div class="profile__photo photo_js"></div>
             <ul>
                 <li class="profile__string">
                     <p class="profile__name">Name:</p>
-                    <p class="profile__value">Oksana</p>
+                    <p class="profile__value name_js"></p>
                 </li>
                 <li class="profile__string">
                     <p class="profile__name">Surname:</p>
-                    <p class="profile__value">Larioshkina</p>
+                    <p class="profile__value surname_js"></p>
                 </li>
                 <li class="profile__string">
                     <p class="profile__name">Email:</p>
-                    <p class="profile__value">larioshkina@gmail.com</p>
+                    <p class="profile__value email_js"></p>
                 </li>
                 <li class="profile__string">
                     <p class="profile__name">Password:</p>
-                    <p class="profile__value">**********</p>
+                    <p class="profile__value password_js"></p>
                 </li>
                 <li class="profile__string">
                     <p class="profile__name">Location:</p>
-                    <p class="profile__value">Toglyatti</p>
+                    <p class="profile__value location_js"></p>
                 </li>
                 <li class="profile__string">
                     <p class="profile__name">Age:</p>
-                    <p class="profile__value">23</p>
+                    <p class="profile__value age_js"></p>
                 </li>
                 <li class="profile__buttonList">
-                    <button class="button profile__button">Change password</button>
-                    <button class="button profile__button">Change other data</button>
-                    <button class="button profile__button">Delete account</button>
+                    <button class="button profile__button changePasswordOpen_js" type="button">Change password</button>
+                    <button class="button profile__button changeDataOpen_js" type="button">Change other data</button>
+                    <button class="button profile__button deleteAccount_js" type="submit">Delete account</button>
                 </li>
             </ul>
         </div>
     </section>
+    @@include('changeProfile/index.html')
+    @@include('changePassword/index.html')
     </main>
-    @@include('MobileMenu/index.html')
+    
+    <script src="/static/images/js/script.js"></script>
+    <script src="/static/images/js/profile.js"></script>
 </body>
 </html>

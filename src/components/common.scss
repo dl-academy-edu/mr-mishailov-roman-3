@@ -1,6 +1,7 @@
 
 @import "./header/header.scss";
 @import "./footer/footer.scss";
+@import "./sendMessage/sendMassage";
 @import"./vars.scss";
 @import"./mixins.scss";
 
@@ -91,11 +92,23 @@ a {
     padding: 10px 19px;
     outline: none;
     transition: background-color 0.5s;
+    cursor: pointer;
+
 
     &:hover, &:focus {
       background-color:  #070707;
       color:#FFFFFF;
 
+    }
+    &_disabled {
+      
+      cursor:  no-drop;
+      opacity: 0.5;
+      &:hover, &:focus {
+        color: #070707;
+        background-color: #FFFFFF;
+        
+      }
     }
 
     &_black {
